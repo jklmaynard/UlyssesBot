@@ -26,29 +26,30 @@ function whenToday() {
 getRandomRow = 'SELECT text, used FROM [table] WHERE used=FALSE ORDER BY RAND() LIMIT 1';
 
 function leoSpeaks() {
-
 	connection.query(getRandomRow, function(err, result, fields) {
-		if (err) throw err;
+		if (err) {
+			throw err;
+		}
 		else {
 			for (key in result)
-				valueRand = result[key];
-			};
-				console.log(valueRand.text)
-				var quote = valueRand.text
-		connection.query('UPDATE [table] SET used=TRUE WHERE text=' + mysql.escape(quote), valueRand, function(err, result) {});
+				var valueRand = result[key];
+				console.log(valueRand.text);
+				var quote = valueRand.text;
 
-		newTweet.post('statuses/update', { status: quote }, function(error, data, response) {
-			if (error) console.log(error)
-				else
-			console.log(data);
-		});
+				connection.query('UPDATE [table] SET used=TRUE WHERE text=' + mysql.escape(quote), valueRand, function(err, result) {});
+
+				newTweet.post('statuses/update', { status: quote }, function(error, data, response) {
+					if (error) {
+						console.log(error);
+					}
+					else {
+						console.log(data);
+					}
+				});
+			}
+		}
 	});
-
 };
-
-setInterval(leoSpeaks, 1000 * 60 * 240);
-
-leoSpeaks();
 
 setInterval(function() {
 		var rightNow = new Date();
@@ -65,6 +66,5 @@ setInterval(function() {
 				};
 			};
 		};
+		console.log("working!")
 	}, (1000 * 60));
-
-whenToday();
