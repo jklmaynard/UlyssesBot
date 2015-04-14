@@ -23,7 +23,7 @@ function whenToday() {
 		};
 }
 
-var getRandomRow = 'SELECT text, used FROM [table] WHERE used=FALSE ORDER BY RAND() LIMIT 1';
+var getRandomRow = 'SELECT text, used FROM microwave WHERE used=FALSE ORDER BY RAND() LIMIT 1';
 
 function leoSpeaks() {
 	connection.query(getRandomRow, function(err, result, fields) {
@@ -36,7 +36,7 @@ function leoSpeaks() {
 				console.log(valueRand.text);
 				var quote = valueRand.text;
 
-				connection.query('UPDATE [table] SET used=TRUE WHERE text=' + mysql.escape(quote), valueRand, function(err, result) {});
+				connection.query('UPDATE microwave SET used=TRUE WHERE text=' + mysql.escape(quote), valueRand, function(err, result) {});
 
 				newTweet.post('statuses/update', { status: quote }, function(error, data, response) {
 					if (error) {
