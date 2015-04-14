@@ -23,7 +23,7 @@ function whenToday() {
 		};
 }
 
-getRandomRow = 'SELECT text, used FROM [table] WHERE used=FALSE ORDER BY RAND() LIMIT 1';
+var getRandomRow = 'SELECT text, used FROM [table] WHERE used=FALSE ORDER BY RAND() LIMIT 1';
 
 function leoSpeaks() {
 	connection.query(getRandomRow, function(err, result, fields) {
@@ -31,7 +31,7 @@ function leoSpeaks() {
 			throw err;
 		}
 		else {
-			for (key in result)
+			for (key in result) {
 				var valueRand = result[key];
 				console.log(valueRand.text);
 				var quote = valueRand.text;
@@ -49,7 +49,7 @@ function leoSpeaks() {
 			}
 		}
 	});
-};
+}
 
 setInterval(function() {
 		var rightNow = new Date();
@@ -66,5 +66,5 @@ setInterval(function() {
 				};
 			};
 		};
-		console.log("working!")
+		console.log("working!");
 	}, (1000 * 60));
